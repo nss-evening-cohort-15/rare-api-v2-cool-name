@@ -6,4 +6,5 @@ disable=broad-except
 
 [MASTER]
 disable=C0114,
+' > .pylintrc
 
