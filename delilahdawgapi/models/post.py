@@ -2,9 +2,16 @@ from unicodedata import category
 from django.db import models
 from .category import Category
 from .reaction import Reaction
+from .rareuser import RareUser
 
 class Post(models.Model):
 
+    rare_user = models.ForeignKey(
+        RareUser,
+        related_name="posts",
+        null=True,
+        on_delete=models.CASCADE
+    )
     title = models.CharField(
         max_length=50,
         default='none'
