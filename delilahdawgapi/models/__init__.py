@@ -3,4 +3,6 @@ from .category import Category
 from .tag import Tag
 from .reaction import Reaction
 from .rareuser import RareUser
+from .subscription import Subscription
+from .comment import Comment
 

@@ -1,4 +1,3 @@
-from unicodedata import category
 from django.db import models
 from .category import Category
 from .reaction import Reaction
@@ -24,7 +23,8 @@ class Post(models.Model):
     )
     reaction = models.ForeignKey(
         Reaction,
-        related_name="post_reaction"
+        related_name="post_reaction",
+        on_delete=models.CASCADE
     )
     publication_date = models.DateTimeField()
     image_url = models.URLField(max_length=200)
