@@ -1,8 +1,7 @@
 from django.db import models
-from django.forms import URLField
-
 from delilahdawgapi.models.rareuser import RareUser
 from .post import Post
+
 
 class Reaction(models.Model):
 
@@ -10,7 +9,7 @@ class Reaction(models.Model):
         null=True,
         max_length=5
     )
-    image_url = URLField(
+    image_url = models.URLField(
         null=True,
         max_length=200
     )

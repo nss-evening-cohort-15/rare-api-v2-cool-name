@@ -1,4 +1,4 @@
-# from pyexpat import model
+
 from django.db import models
 from .post import Post
 from .rareuser import RareUser
@@ -7,8 +7,7 @@ class Comment(models.Model):
 
     content = models.CharField(
         max_length=3000,
-        default="I forgot to write a comment",
-        on_delete=models.CASCADE
+        default="I forgot to write a comment"
     )       
     created_on = models.DateTimeField()
     post = models.ForeignKey(
@@ -18,5 +17,6 @@ class Comment(models.Model):
     )
     author = models.ForeignKey(
         RareUser,
-        related_name='commenter'
+        related_name='commenter',
+        on_delete=models.CASCADE
     )
