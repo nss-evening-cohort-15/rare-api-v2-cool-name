@@ -1,6 +1,4 @@
-from tkinter import CASCADE
 from django.db import models
-from django.forms import CharField
 from .post import Post
 
 class Tag(models.Model):
@@ -10,6 +8,7 @@ class Tag(models.Model):
         null=True  
     )
     post = models.ForeignKey(
+        Post,
         null=True,
         related_name="post_tag",
         on_delete=models.CASCADE

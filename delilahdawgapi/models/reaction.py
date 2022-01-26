@@ -1,9 +1,5 @@
 from django.db import models
-from django.forms import URLField
-
 from delilahdawgapi.models.rareuser import RareUser
-from .reaction import Reaction
-from .post import Post
 
 class Reaction(models.Model):
 
@@ -11,7 +7,7 @@ class Reaction(models.Model):
         null=True,
         max_length=5
     )
-    image_url = URLField(
+    image_url = models.URLField(
         null=True,
         max_length=200
     )
@@ -21,6 +17,7 @@ class Reaction(models.Model):
         on_delete=models.CASCADE
     )
     post = models.ForeignKey(
-        Post,
-        related_name="post_reaction"
+        "delilahdawgapi.Post",
+        related_name="post_reaction",
+        on_delete=models.CASCADE
     )
