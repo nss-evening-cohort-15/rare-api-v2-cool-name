@@ -1,4 +1,4 @@
-from pyexpat import model
+# from pyexpat import model
 from django.db import models
 from .post import Post
 from .rareuser import RareUser

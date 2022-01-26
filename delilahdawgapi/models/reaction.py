@@ -2,7 +2,6 @@ from django.db import models
 from django.forms import URLField
 
 from delilahdawgapi.models.rareuser import RareUser
-from .reaction import Reaction
 from .post import Post
 
 class Reaction(models.Model):
@@ -22,5 +21,7 @@ class Reaction(models.Model):
     )
     post = models.ForeignKey(
         Post,
-        related_name="post_reaction"
+        related_name="post_reaction",
+        on_delete=models.CASCADE
+        
     )

@@ -1,4 +1,4 @@
-from unicodedata import category
+# from unicodedata import category
 from django.db import models
 from .category import Category
 from .reaction import Reaction
