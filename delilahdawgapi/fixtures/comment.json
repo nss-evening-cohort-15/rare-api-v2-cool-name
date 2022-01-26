@@ -1,0 +1,12 @@
+[
+    {
+        "model": "delilahdawgapi.comment",
+        "pk": 1,
+        "fields": {
+            "content": "I love this",
+            "created_on": "2020-08-28T14:51:39.989Z",
+            "post": 1,
+            "author": 1
+        }
+    }
+]

@@ -1,0 +1,9 @@
+[
+    {
+        "model": "delilahdawgapi.category",
+        "pk": 1,
+        "fields": {
+            "label": "Awesome"
+        }
+    }
+]
