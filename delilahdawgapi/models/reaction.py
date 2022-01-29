@@ -1,5 +1,4 @@
 from django.db import models
-from delilahdawgapi.models.rareuser import RareUser
 
 class Reaction(models.Model):
 
@@ -10,14 +9,4 @@ class Reaction(models.Model):
     image_url = models.URLField(
         null=True,
         max_length=200
-    )
-    user = models.ForeignKey(
-        RareUser,
-        related_name="user_reaction",
-        on_delete=models.CASCADE
-    )
-    post = models.ForeignKey(
-        "delilahdawgapi.Post",
-        related_name="post_reaction",
-        on_delete=models.CASCADE
     )
