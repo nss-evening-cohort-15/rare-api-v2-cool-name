@@ -13,4 +13,4 @@ class RareUser(models.Model):
         max_length=500
     )
     created_on = models.DateField(null=True)
-    active = models.BinaryField()
+    active = models.BooleanField(default=True)
