@@ -1,6 +1,6 @@
 [
     {
-        "model": "delilahdawgapi.post_reaction",
+        "model": "delilahdawgapi.postreaction",
         "pk": 1,
         "fields": {
             "user": 1,
