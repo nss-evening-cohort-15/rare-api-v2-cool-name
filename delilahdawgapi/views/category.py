@@ -5,7 +5,7 @@ from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from delilahdawgapi.models import Category
-from delilahdawgapi.views.category import CategorySerializer
+
 
 class CategoryView(ViewSet):
     
@@ -33,5 +33,5 @@ class CategoryView(ViewSet):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('label')
+        fields = ('id', 'label')
     
