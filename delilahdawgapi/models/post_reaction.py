@@ -1,6 +1,7 @@
 from django.db import models
 from delilahdawgapi.models.rareuser import RareUser
 from delilahdawgapi.models.reaction import Reaction
+from delilahdawgapi.models.post import Post
 
 class PostReaction(models.Model):
 
@@ -10,7 +11,7 @@ class PostReaction(models.Model):
         on_delete=models.CASCADE
     )
     post = models.ForeignKey(
-        "delilahdawgapi.Post",
+        Post,
         related_name="post_reaction",
         on_delete=models.CASCADE
     )
