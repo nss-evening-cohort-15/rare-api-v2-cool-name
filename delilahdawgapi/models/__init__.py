@@ -5,5 +5,5 @@ from .reaction import Reaction
 from .rareuser import RareUser
 from .subscription import Subscription
 from .comment import Comment
-
+from .post_reaction import Reaction
 

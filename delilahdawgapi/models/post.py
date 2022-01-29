@@ -22,7 +22,7 @@ class Post(models.Model):
         null=True,
         on_delete=models.SET_NULL
     )
-    reaction = models.ForeignKey(
+    reaction = models.ManyToManyField(
         Reaction,
         related_name="post_reaction",
         on_delete=models.CASCADE
@@ -30,4 +30,4 @@ class Post(models.Model):
     publication_date = models.DateTimeField()
     image_url = models.URLField(max_length=200)
     content = models.CharField(max_length=3000)
-    approved = models.BinaryField()
+    approved = models.BooleanField(default=False)
