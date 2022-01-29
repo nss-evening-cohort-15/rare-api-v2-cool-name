@@ -30,11 +30,7 @@ router.register(r'categories', CategoryView, 'category')
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'comments', CommentView, 'comment')
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 4296337a6621a6443d9db6e1807957adc7336833
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register', register_user),
