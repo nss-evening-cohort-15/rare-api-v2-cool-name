@@ -1,0 +1,11 @@
+[
+    {
+        "model": "delilahdawgapi.post_reaction",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "post": 1,
+            "reaction": 1
+        }
+    }
+]
