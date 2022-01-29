@@ -1,6 +1,5 @@
 from django.db import models
 from .category import Category
-from .reaction import Reaction
 from .rareuser import RareUser
 
 class Post(models.Model):
@@ -20,11 +19,6 @@ class Post(models.Model):
         verbose_name="Category",
         null=True,
         on_delete=models.SET_NULL
-    )
-    reaction = models.ManyToManyField(
-        Reaction,
-        related_name="post_reaction",
-        on_delete=models.CASCADE
     )
     publication_date = models.DateTimeField()
     image_url = models.URLField(max_length=200)
