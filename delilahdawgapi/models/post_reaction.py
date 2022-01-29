@@ -6,12 +6,12 @@ class PostReaction(models.Model):
 
     user = models.ForeignKey(
         RareUser,
-        related_name="post_reactions",
+        related_name="user_reaction",
         on_delete=models.CASCADE
     )
     post = models.ForeignKey(
         "delilahdawgapi.Post",
-        related_name="post_reactions",
+        related_name="post_reaction",
         on_delete=models.CASCADE
     )
     reaction = models.ForeignKey(
