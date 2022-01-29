@@ -2,7 +2,7 @@ from django.db import models
 from delilahdawgapi.models.rareuser import RareUser
 from delilahdawgapi.models.reaction import Reaction
 
-class Reaction(models.Model):
+class PostReaction(models.Model):
 
     user = models.ForeignKey(
         RareUser,
