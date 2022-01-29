@@ -18,12 +18,14 @@ from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
 from delilahdawgapi.views import register_user, login_user
-from delilahdawgapi.views import RareUserView, PostView
+from delilahdawgapi.views import RareUserView, PostView, CommentView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'posts', PostView, 'post')
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'rareusers', RareUserView, 'rareuser')
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'commentss', CommentView, 'comment')
 
 
 urlpatterns = [
