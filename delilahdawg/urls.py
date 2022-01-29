@@ -18,13 +18,13 @@ from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
 from delilahdawgapi.views import register_user, login_user
+from delilahdawgapi.views import RareUserView
+from delilahdawgapi.views.comment import CommentView
 from delilahdawgapi.views import RareUserView, PostView
-
-router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'posts', PostView, 'post')
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'rareusers', RareUserView, 'rareuser')
-
+router.register(r'comments', CommentView, 'comment')
+router.register(r'posts', PostView, 'post')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
