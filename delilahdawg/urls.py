@@ -24,13 +24,11 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'posts', PostView, 'post')
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'rareusers', RareUserView, 'rareuser')
-router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'commentss', CommentView, 'comment')
-
+router.register(r'comments', CommentView, 'comment')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register', register_user),
     path('login', login_user),
-    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),    
+    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
 ]
