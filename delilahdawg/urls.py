@@ -25,7 +25,7 @@ router.register(r'posts', PostView, 'post')
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'rareusers', RareUserView, 'rareuser')
 router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'commentss', CommentView, 'comment')
+router.register(r'comments', CommentView, 'comment')
 
 
 urlpatterns = [
