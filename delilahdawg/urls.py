@@ -27,20 +27,14 @@ from delilahdawgapi.views import SubscriptionView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'posts', PostView, 'post')
-# router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'rareusers', RareUserView, 'rareuser')
-# router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'categories', CategoryView, 'category')
-# router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'rareusers', RareUserView, 'rareuser')
+router.register(r'categories', CategoryView, 'category')
 router.register(r'comments', CommentView, 'comment')
-
 router.register(r'postreactions', PostReactionView, 'postreaction')
-
-router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'subscriptions', SubscriptionView, 'subscription')
 router.register(r'tags', TagView, 'tag')
-
-
 
 
 urlpatterns = [
