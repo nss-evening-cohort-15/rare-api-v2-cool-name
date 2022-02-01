@@ -12,8 +12,6 @@ class TagView(ViewSet):
 
     def create(self, request):
 
-        rareuser = RareUser.objects.get(user=request.auth.user)
-
         tag = Tag()
         tag.label = request.data["label"]
         post = Post.objects.get(pk=request.data["post"])
