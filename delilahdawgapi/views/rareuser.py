@@ -5,26 +5,35 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from delilahdawgapi.models import RareUser
+from django.http import HttpResponseServerError
 
 class RareUserView(ViewSet):
 
     def list(self, request):
 
         rareuser = RareUser.objects.get(user=request.auth.user)
+        # rareuser = RareUser.objects.all()
 
         rareuser = RareUserSerializer(
             rareuser, many=False, context={'request': request}
         )
 
-        rareuser = {}
-        rareuser.user = request.data["user"]
-        rareuser.bio = request.data["bio"]
-        rareuser.profile_image_url = request.data["profile_image_url"]
-        rareuser.created_on = request.data["created_on"]
-        rareuser.active = request.data["active"]
-        rareuser["rareuser"] = rareuser.data
+        profile = {}
+        # profile.user = request.data["user"]
+        profile["rareuser"] = rareuser.data
 
-        return Response(rareuser)
+        return Response(profile)
+
+    def retrieve(self,request, pk=None):
+        """GEt request for single Comment"""
+        
+        try: 
+            
+            rareuser = RareUser.objects.get(pk=pk)
+            serializer = RareUserSerializer(rareuser, context={'request': request })
+            return Response(serializer.data)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
