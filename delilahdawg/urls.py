@@ -18,17 +18,17 @@ from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
 from delilahdawgapi.views import register_user, login_user
-
-from delilahdawgapi.views import RareUserView, PostView, CommentView
+from delilahdawgapi.views import RareUserView, PostView, CommentView, CategoryView
 from delilahdawgapi.views import CategoryView, PostReactionView
 
 from delilahdawgapi.views import RareUserView, PostView, CommentView, TagView
 from delilahdawgapi.views import CategoryView
 from delilahdawgapi.views import SubscriptionView
 
-
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'posts', PostView, 'post')
+router.register(r'rareusers', RareUserView, 'rareuser')
+router.register(r'categories', CategoryView, 'category')
 router.register(r'rareusers', RareUserView, 'rareuser')
 router.register(r'categories', CategoryView, 'category')
 router.register(r'comments', CommentView, 'comment')
@@ -42,4 +42,5 @@ urlpatterns = [
     path('register', register_user),
     path('login', login_user),
     path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
+    path('', include(router.urls))
 ]
