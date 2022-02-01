@@ -5,4 +5,5 @@ from .comment import CommentView
 from .post import PostView
 from .tag import TagView
 from .category import CategoryView
+from .subscription import SubscriptionView
 
