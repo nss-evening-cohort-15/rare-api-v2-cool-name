@@ -4,3 +4,4 @@ from .rareuser import RareUserView
 from .comment import CommentView
 from .post import PostView
 from .category import CategoryView
+from .subscription import SubscriptionView

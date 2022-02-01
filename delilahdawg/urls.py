@@ -20,6 +20,7 @@ from rest_framework import routers
 from delilahdawgapi.views import register_user, login_user
 from delilahdawgapi.views import RareUserView, PostView, CommentView
 from delilahdawgapi.views import CategoryView
+from delilahdawgapi.views import SubscriptionView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'posts', PostView, 'post')
@@ -29,6 +30,8 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'categories', CategoryView, 'category')
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'comments', CommentView, 'comment')
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'subscriptions', SubscriptionView, 'subscription')
 
 
 
