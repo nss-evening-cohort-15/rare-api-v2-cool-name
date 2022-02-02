@@ -1,4 +1,4 @@
-from django.db import HttpResponseServerError
+from django.http import HttpResponseServerError
 from django.forms import ValidationError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
