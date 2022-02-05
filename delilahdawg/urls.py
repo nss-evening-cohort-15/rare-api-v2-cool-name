@@ -18,12 +18,9 @@ from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
 from delilahdawgapi.views import register_user, login_user
-from delilahdawgapi.views import RareUserView, PostView, CommentView, CategoryView
-from delilahdawgapi.views import CategoryView, PostReactionView
-
-from delilahdawgapi.views import RareUserView, PostView, CommentView, TagView
-from delilahdawgapi.views import CategoryView
-from delilahdawgapi.views import SubscriptionView
+from delilahdawgapi.views import (RareUserView, PostView,
+CommentView, CategoryView, PostReactionView,
+TagView, SubscriptionView)
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'posts', PostView, 'post')

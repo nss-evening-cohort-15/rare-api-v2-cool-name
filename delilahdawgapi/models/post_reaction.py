@@ -1,7 +1,7 @@
 from django.db import models
-from delilahdawgapi.models.rareuser import RareUser
-from delilahdawgapi.models.reaction import Reaction
-from delilahdawgapi.models.post import Post
+from .rareuser import RareUser
+from .reaction import Reaction
+from .post import Post
 
 class PostReaction(models.Model):
 
