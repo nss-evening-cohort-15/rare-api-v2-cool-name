@@ -3,8 +3,7 @@
         "model": "delilahdawgapi.tag",
         "pk": 1,
         "fields": {
-            "label": "Radical",
-            "post": 1
+            "label": "Radical"
         }
     }
 ]
