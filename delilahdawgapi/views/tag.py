@@ -5,7 +5,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
-from delilahdawgapi.models import Tag, RareUser, Post
+from delilahdawgapi.models import Tag
 
 
 class TagView(ViewSet):
@@ -14,8 +14,6 @@ class TagView(ViewSet):
 
         tag = Tag()
         tag.label = request.data["label"]
-        post = Post.objects.get(pk=request.data["post"])
-        tag.post = post
 
         try:
             tag.save()
@@ -24,6 +22,23 @@ class TagView(ViewSet):
             return Response(serializer.data)
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
+        
+        
+    def retrieve(self, request, pk=None):
+        
+        try:
+            tag = Tag.objects.get(pk=pk)
+            serializer = TagSerializer(tag, context={'request': request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
+        
+    def list(self, request):
+        tags = Tag.objects.all()
+        
+        serializer = TagSerializer(
+            tags, many=True, context={'request': request})
+        return Response(serializer.data)
 
     def destroy(self, request, pk=None):
 
@@ -41,6 +56,5 @@ class TagView(ViewSet):
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
-        model = tag
-        fields = ('id', 'title', 'post')
-        depth = 1
+        model = Tag
+        fields = ('id', 'label')
