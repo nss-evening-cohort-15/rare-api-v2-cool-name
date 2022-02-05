@@ -6,7 +6,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
-from delilahdawgapi.models import Post, RareUser, Reaction, Category
+from delilahdawgapi.models import Post, RareUser, Reaction, Category, Tag
 
 
 class PostView(ViewSet):
@@ -16,6 +16,7 @@ class PostView(ViewSet):
         rareuser = RareUser.objects.get(user=request.auth.user)
         category = Category.objects.get(pk=request.data["categoryId"])
         reaction = Reaction.objects.get(pk=request.data["reactionId"])
+        tag = Tag.object.get(pk=request.data["tagId"])
 
         post = Post()
         post.title = request.data["title"]
@@ -27,6 +28,7 @@ class PostView(ViewSet):
         post.rareuser = rareuser
         post.reaction = reaction
         post.category = category
+        post.tag = tag
 
         try:
             post.save()
