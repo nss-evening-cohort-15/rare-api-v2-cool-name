@@ -3,13 +3,13 @@ from rest_framework import serializers
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
-from delilahdawgapi.models import User, Post, Reaction, PostReaction
+from delilahdawgapi.models import RareUser, Post, Reaction, PostReaction
 
 class PostReactionView(ViewSet):
 
     def create(self, request):
         
-        user = User.objects.get(pk=request.data["rareuserId"])
+        user = request.auth.user.rare_user
         post = Post.objects.get(pk=request.data["postId"])
         reaction = Reaction.objects.get(pk=request.data["reactionId"])
         
