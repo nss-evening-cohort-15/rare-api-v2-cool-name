@@ -1,4 +1,3 @@
-# from unicodedata import category
 from django.core.exceptions import ValidationError
 from rest_framework import status
 from django.http import HttpResponseServerError
@@ -6,7 +5,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
-from delilahdawgapi.models import Post, RareUser, Reaction, Category
+from delilahdawgapi.models import Post, RareUser, Reaction, Category, Tag
 
 
 class PostView(ViewSet):
@@ -16,6 +15,7 @@ class PostView(ViewSet):
         rareuser = RareUser.objects.get(user=request.auth.user)
         category = Category.objects.get(pk=request.data["categoryId"])
         reaction = Reaction.objects.get(pk=request.data["reactionId"])
+        tag = Tag.object.get(pk=request.data["tagId"])
 
         post = Post()
         post.title = request.data["title"]
@@ -27,6 +27,7 @@ class PostView(ViewSet):
         post.rareuser = rareuser
         post.reaction = reaction
         post.category = category
+        post.tag = tag
 
         try:
             post.save()
@@ -49,6 +50,7 @@ class PostView(ViewSet):
         rareuser = RareUser.objects.get(user=request.auth.user)
         category = Category.objects.get(pk=request.data["categoryId"])
         reaction = Reaction.objects.get(pk=request.data["reactionId"])
+        tag = Tag.object.get(pk=request.data["tagId"])
 
         post = Post()
         post.title = request.data["title"]
@@ -60,6 +62,7 @@ class PostView(ViewSet):
         post.rareuser = rareuser
         post.reaction = reaction
         post.category = category
+        post.tag = tag
         post.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
@@ -93,9 +96,34 @@ class PostView(ViewSet):
         return Response(serializer.data)
 
 
+class PostRareUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RareUser
+        fields = ['user', 'bio', 'profile_image_url', 'created_on', 'active']
+
+
+class PostCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['label']
+
+
+class PostReactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reaction
+        fields = ['label', 'image_url']
+
+
+class PostTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ['label']
+
+
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        field = ('id', 'title', 'category', 'reaction',
-                 'publication_date', 'image_url', 'content', 'approved')
-        depth = 1
+        fields = ('id', 'title', 'reaction', 'category',
+                  'publication_date', 'image_url', 'content', 'approved', 'tag')
+
+# 'rareuser',

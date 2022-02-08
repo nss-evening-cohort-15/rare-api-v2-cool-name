@@ -1,6 +1,9 @@
 from django.db import models
 from .category import Category
 from .rareuser import RareUser
+from .tag import Tag
+from .reaction import Reaction
+
 
 class Post(models.Model):
 
@@ -20,7 +23,19 @@ class Post(models.Model):
         null=True,
         on_delete=models.SET_NULL
     )
+    reaction = models.ForeignKey(
+        Reaction,
+        verbose_name="Reaction",
+        null=True,
+        on_delete=models.SET_NULL
+    )
     publication_date = models.DateTimeField()
     image_url = models.URLField(max_length=200)
     content = models.CharField(max_length=3000)
     approved = models.BooleanField(default=False)
+    tag = models.ForeignKey(
+        Tag,
+        verbose_name="Tag",
+        null=True,
+        on_delete=models.SET_NULL
+    )
