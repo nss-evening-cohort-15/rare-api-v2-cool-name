@@ -6,100 +6,124 @@ from rest_framework import serializers
 from rest_framework import status
 from rest_framework.decorators import action
 from delilahdawgapi.models import Subscription, RareUser, rareuser, subscription
-
+from django.contrib.auth.models import User
 
 class SubscriptionView(ViewSet):
     """DelilahDawg Subscription"""
     
-    @action(methods=['post', 'delete'], detail=True)
-    def subscribe(self, request, pk=None):
+    # @action(methods=['post', 'delete'], detail=True)
+    # def subscribe(self, request, pk=None):
         
-        rareuser = RareUser.objects.get(user=request.auth.user)
+    #     rareuser = RareUser.objects.get(user=request.auth.user)
         
-        try: 
+    #     try: 
             
-            subscription = Subscription.objects.get(pk=pk)
-        except Subscription.DoesNotExist:
-            return Response(
-                {'message': 'Subscription does not exist.'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        if request.method == "POST":
-            try:
+    #         subscription = Subscription.objects.get(pk=pk)
+    #     except Subscription.DoesNotExist:
+    #         return Response(
+    #             {'message': 'Subscription does not exist.'},
+    #             status=status.HTTP_400_BAD_REQUEST
+    #         )
+    #     if request.method == "POST":
+    #         try:
                 
-                subscription.followers.add(rareuser)
-                return Response({}, status=status.HTTP_201_CREATED)
-            except Exception as ex:
-                return Response({'message': ex.args[0]})
+    #             subscription.followers.add(rareuser)
+    #             return Response({}, status=status.HTTP_201_CREATED)
+    #         except Exception as ex:
+    #             return Response({'message': ex.args[0]})
             
-        elif request.method == "DELETE":
-            try:
+    #     elif request.method == "DELETE":
+    #         try:
                 
-                subscription.followers.remove(rareuser)
-                return Response(None, status=status.HTTP_204_NO_CONTENT)
-            except Exception as ex:
-                return Response({'message': ex.args[0]})
+    #             subscription.followers.remove(rareuser)
+    #             return Response(None, status=status.HTTP_204_NO_CONTENT)
+    #         except Exception as ex:
+    #             return Response({'message': ex.args[0]})
             
         
     
     
     
-    def create(self,request):
+    # def create(self,request):
         
-        author = RareUser.objects.get(user=request.auth.user)
-        follower = RareUser.objects.get(user=request.auth.user)
+    #     author = RareUser.objects.get(user=request.auth.user)
+    #     follower = RareUser.objects.get(user=request.auth.user)
         
-        subscription = Subscription()
-        subscription.follower = follower
-        subscription.author = author
-        subscription.created_on = request.data["created_on"]
-        subscription.ended_on = request.data["ended_on"]
+    #     subscription = Subscription()
+    #     subscription.follower = follower
+    #     subscription.author = author
+    #     subscription.created_on = request.data["created_on"]
+    #     subscription.ended_on = request.data["ended_on"]
         
-        try:
-            subscription.save()
-            serializer = SubscriptionSerializer(subscription, context={'request': request})
-            return Response(serializer.data)
-        except ValidationError as ex:
-            return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
+    #     try:
+    #         subscription.save()
+    #         serializer = SubscriptionSerializer(subscription, context={'request': request})
+    #         return Response(serializer.data)
+    #     except ValidationError as ex:
+    #         return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
         
         
-    def retrieve(self, request, pk=None):
+    # def retrieve(self, request, pk=None):
         
-        try:
-            subscription = Subscription.objects.get(pk=pk)
-            serializer = SubscriptionSerializer(subscription, context={'request': request})
-            return Response(serializer.data)
-        except Exception as ex:
-            return HttpResponseServerError(ex)
+    #     try:
+    #         subscription = Subscription.objects.get(pk=pk)
+    #         serializer = SubscriptionSerializer(subscription, context={'request': request})
+    #         return Response(serializer.data)
+    #     except Exception as ex:
+    #         return HttpResponseServerError(ex)
         
-    def destroy(self, request, pk=None):
+    # def destroy(self, request, pk=None):
         
-        try:
-            subscription = Subscription.objects.get(pk=pk)
-            subscription.delete()
+    #     try:
+    #         subscription = Subscription.objects.get(pk=pk)
+    #         subscription.delete()
             
-            return Response({}, status=status.HTTP_204_NO_CONTENT)
+    #         return Response({}, status=status.HTTP_204_NO_CONTENT)
         
-        except Subscription.DoesNotExist as ex:
-            return Response ({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+    #     except Subscription.DoesNotExist as ex:
+    #         return Response ({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
         
-        except Exception as ex:
-            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    #     except Exception as ex:
+    #         return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def list(self, request):
         
         rareuser = RareUser.objects.get(user=request.auth.user)
-        subscriptions = Subscription.objects.get(all)
+        subscriptions = Subscription.objects.all()
         
         for subscription in subscriptions:
             
-            subscription.joined = rareuser in subscription.followers.all()
+            subscription.joined = rareuser in subscription.follower.all()
             
+        if rareuser is not None:
+            subscriptions = subscriptions.filter(followed_by=type)
+            
+        serializer = SubscriptionSerializer(
+            subscriptions, many=True, context={'request': request})
+        return Response(serializer.data)
     
     
+class SubscriptionUserSerializer(serializers.ModelSerializer):
     
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']    
+    
+class SubscriptionRareuserSerializer(serializers.ModelSerializer):
+    user = SubscriptionUserSerializer(many=False)
+    
+    class Meta:
+        model = RareUser
+        fields = ['user', 'bio', 'profile_image_url', 'created_on', 'active']   
+
 class SubscriptionSerializer(serializers.ModelSerializer):
+    author = SubscriptionRareuserSerializer(many=False)
+    follower = SubscriptionRareuserSerializer(many=False)
     
     class Meta:
         model = Subscription
-        fields =('id', 'created_on', 'ended_on')
+        fields =('id', 'author', 'follower', 'created_on', 'ended_on', 'joined')
+        
+
+        
+
