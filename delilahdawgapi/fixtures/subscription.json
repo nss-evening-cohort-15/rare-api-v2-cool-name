@@ -3,8 +3,8 @@
         "model": "delilahdawgapi.subscription",
         "pk": 1,
         "fields": {
-            "created_on": "2020-08-28T14:51:39.989Z",
-            "ended_on": "2020-09-28T14:51:39.989Z"
+            "created_on": "2020-08-28",
+            "ended_on": "2020-09-28"
         }
     }
 ]
