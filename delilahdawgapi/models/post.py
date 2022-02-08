@@ -2,6 +2,7 @@ from django.db import models
 from .category import Category
 from .rareuser import RareUser
 from .tag import Tag
+from .reaction import Reaction
 
 
 class Post(models.Model):
@@ -19,6 +20,12 @@ class Post(models.Model):
     category = models.ForeignKey(
         Category,
         verbose_name="Category",
+        null=True,
+        on_delete=models.SET_NULL
+    )
+    reaction = models.ForeignKey(
+        Reaction,
+        verbose_name="Reaction",
         null=True,
         on_delete=models.SET_NULL
     )
