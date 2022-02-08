@@ -15,5 +15,5 @@ class RareUser(models.Model):
         null=True,
         max_length=500
     )
-    created_on = models.DateField(null=True)
+    created_on = models.DateField(auto_now_add=True)
     active = models.BooleanField(default=True)
