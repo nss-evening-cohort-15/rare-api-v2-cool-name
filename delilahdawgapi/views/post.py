@@ -1,5 +1,3 @@
-# from unicodedata import category
-from unicodedata import category
 from django.core.exceptions import ValidationError
 from rest_framework import status
 from django.http import HttpResponseServerError

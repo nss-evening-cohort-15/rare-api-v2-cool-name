@@ -9,6 +9,11 @@ from delilahdawgapi.models import Category
 
 class CategoryView(ViewSet):
     
+    def list(self, request):
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True, context={'request': request})
+        return Response(serializer.data)
+        
     def create(self, request):
     
         category = Category()
