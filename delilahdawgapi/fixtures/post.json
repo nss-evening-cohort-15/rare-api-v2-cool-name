@@ -3,7 +3,7 @@
         "model": "delilahdawgapi.post",
         "pk": 1,
         "fields": {
-            "rare_user": 1,
+            "rare_user": 4,
             "title": "Woah, this is Sick ya dingus",
             "category": 1,
             "reaction": 1,
