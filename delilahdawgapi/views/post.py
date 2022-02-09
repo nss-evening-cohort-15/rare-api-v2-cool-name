@@ -121,9 +121,11 @@ class PostTagSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    rare_user = PostRareUserSerializer(many=False)
+
     class Meta:
         model = Post
-        fields = ('id', 'title', 'reaction', 'category',
+        fields = ('id', 'rare_user', 'title', 'reaction', 'category',
                   'publication_date', 'image_url', 'content', 'approved', 'tag')
 
-# 'rareuser',
+# 'rare_user',
