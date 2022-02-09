@@ -19,10 +19,4 @@ class Subscription(models.Model):
     created_on = models.DateField(auto_now_add=True)
     ended_on = models.DateField(null=True)
     
-    @property
-    def joined(self):
-        return self.__joined
-
-    @joined.setter
-    def joined(self, value):
-        self.__joined = value
+    
