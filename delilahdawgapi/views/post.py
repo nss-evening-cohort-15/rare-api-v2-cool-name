@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
 from delilahdawgapi.models import Post, RareUser, Reaction, Category, Tag
+from django.contrib.auth.models import User
 
 
 class PostView(ViewSet):
@@ -95,12 +96,16 @@ class PostView(ViewSet):
             posts, many=True, context={'request': request})
         return Response(serializer.data)
 
+class PostUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id']
 
 class PostRareUserSerializer(serializers.ModelSerializer):
+    user = PostUserSerializer(many=False)
     class Meta:
         model = RareUser
         fields = ['user', 'bio', 'profile_image_url', 'created_on', 'active']
-
 
 class PostCategorySerializer(serializers.ModelSerializer):
     class Meta:
