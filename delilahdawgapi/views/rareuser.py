@@ -36,6 +36,14 @@ class RareUserView(ViewSet):
         except Exception as ex:
             return HttpResponseServerError(ex)
 
+    def update(self, request, pk=None):
+        rareuser = RareUser.objects.get(pk=pk)
+        rareuser.bio = request.data["bio"]
+        rareuser.profile_image_url = request.data["profile_image_url"]
+        rareuser.save()
+        
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+
     @action(methods=["GET"], detail=True)
     def posts(self,request, pk=None):
         user_posts = Post.objects.filter(rare_user=pk)
