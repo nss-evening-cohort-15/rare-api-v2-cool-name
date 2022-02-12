@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.core.exceptions import ValidationError
 from rest_framework import status
 from django.http import HttpResponseServerError
@@ -122,6 +123,9 @@ class PostTagSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     rare_user = PostRareUserSerializer(many=False)
+    # reaction = PostReactionSerializer(many=True)
+    # category = PostCategorySerializer(many=False)
+    # tag = PostTagSerializer(many=True)
 
     class Meta:
         model = Post
