@@ -20,7 +20,7 @@ from rest_framework import routers
 from delilahdawgapi.views import register_user, login_user
 from delilahdawgapi.views import (RareUserView, PostView,
 CommentView, CategoryView, PostReactionView,
-TagView, SubscriptionView)
+TagView, SubscriptionView, UserListView)
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'posts', PostView, 'post')
@@ -30,6 +30,7 @@ router.register(r'comments', CommentView, 'comment')
 router.register(r'postreactions', PostReactionView, 'postreaction')
 router.register(r'subscriptions', SubscriptionView, 'subscription')
 router.register(r'tags', TagView, 'tag')
+router.register(r'userlists', UserListView, 'userlist')
 
 
 urlpatterns = [

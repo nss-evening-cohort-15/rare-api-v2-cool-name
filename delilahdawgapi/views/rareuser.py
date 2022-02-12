@@ -9,35 +9,6 @@ from django.http import HttpResponseServerError
 
 class RareUserView(ViewSet):
 
-    @action(methods=['post', 'delete'], detail=True)
-    def subscribe(self, request, pk=None):
-        
-        rareuser = RareUser.objects.get(user=request.auth.user)
-        
-        try: 
-            
-            rareuser = rareuser.objects.get(pk=pk)
-        except RareUser.DoesNotExist:
-            return Response(
-                {'message': 'Subscription does not exist.'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        if request.method == "POST":
-            try:
-                
-                rareuser.following.add(rareuser)
-                return Response({}, status=status.HTTP_201_CREATED)
-            except Exception as ex:
-                return Response({'message': ex.args[0]})
-            
-        elif request.method == "DELETE":
-            try:
-                
-                rareuser.following.remove(rareuser)
-                return Response(None, status=status.HTTP_204_NO_CONTENT)
-            except Exception as ex:
-                return Response({'message': ex.args[0]})
-    
     
     
     def list(self, request):
