@@ -44,23 +44,26 @@ class TagView(ViewSet):
         return Response(serializer.data)
     
     # @api_view(['PUT'])
-    @permission_classes([IsAdminUser])
+    # @permission_classes([IsAdminUser, ])
     def update(self, request, pk=None):
         
-        # currentUser = User.objects.get(user=request.auth.user)
-        
-        # if currentUser: 
+        if not request.auth.user.is_staff:
+            return Response({}, status=status.HTTP_401_UNAUTHORIZED)
+            
         tag = Tag.objects.get(pk=pk)
         tag.label = request.data["label"]
 
         tag.save()
-            
+        
         return Response({}, status=status.HTTP_204_NO_CONTENT)
     
     # @api_view(['DELETE'])
-    @permission_classes([IsAdminUser])
+    # @permission_classes([IsAdminUser, ])
     def destroy(self, request, pk=None):
 
+        if not request.auth.user.is_staff:
+            return Response({}, status=status.HTTP_401_UNAUTHORIZED)
+        
         try:
             tag = Tag.objects.get(pk=pk)
             tag.delete()
