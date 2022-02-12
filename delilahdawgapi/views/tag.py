@@ -1,11 +1,14 @@
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
-from django.test import tag
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
+from rest_framework.decorators import  permission_classes, api_view
+from rest_framework.permissions import IsAdminUser
 from delilahdawgapi.models import Tag
+
 
 
 class TagView(ViewSet):
@@ -39,7 +42,23 @@ class TagView(ViewSet):
         serializer = TagSerializer(
             tags, many=True, context={'request': request})
         return Response(serializer.data)
+    
+    # @api_view(['PUT'])
+    @permission_classes([IsAdminUser])
+    def update(self, request, pk=None):
+        
+        # currentUser = User.objects.get(user=request.auth.user)
+        
+        # if currentUser: 
+        tag = Tag.objects.get(pk=pk)
+        tag.label = request.data["label"]
 
+        tag.save()
+            
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+    
+    # @api_view(['DELETE'])
+    @permission_classes([IsAdminUser])
     def destroy(self, request, pk=None):
 
         try:
@@ -58,3 +77,9 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ('id', 'label')
+        
+# class TagAdminSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ('id', 'is_staff', 'is_superuser')
+        
